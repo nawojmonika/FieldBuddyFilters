@@ -1,5 +1,5 @@
 export enum OrderColor {
-    Red= "Red",
+    Red = "Red",
     Green = "Green",
     Blue = "Blue"
 }
