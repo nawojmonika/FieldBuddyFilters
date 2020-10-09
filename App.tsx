@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import OrderList from "./components/orderList/OrderList.ts";
 
 export default class App extends React.Component {
 render() {
   return(
       <View style={styles.container}>
         <Text>This is a test</Text>
-        <StatusBar style="auto" />
+        <OrderList/>
       </View>
   );
 }
