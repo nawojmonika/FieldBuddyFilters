@@ -3,15 +3,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import OrderList from "./components/orderList/OrderList.ts";
 
-export default class App extends React.Component {
-render() {
+export default function App(): JSX.Element {
   return(
       <View style={styles.container}>
         <Text>This is a test</Text>
         <OrderList/>
       </View>
   );
-}
 }
 
 const styles = StyleSheet.create({
