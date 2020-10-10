@@ -1,0 +1,82 @@
+[
+  {
+    "Title": "Open Werkbonnen",
+    "Properties": ["Status", "Color"],
+    "Values": ["Open", "Blue"],
+    "Operation": "AND",
+    "Comparison": "Equal"
+  },
+  {
+    "Title": "< 15km",
+    "Properties": ["Distance"],
+    "Values": [15],
+    "Comparison": "Less"
+  },
+  {
+    "Title": "Type",
+    "AskUser": [
+      {
+        "Type": "Checkbox",
+        "Property": "Type",
+        "Options": [
+          {
+            "Label": "Installation",
+            "Value": "Installation"
+          },
+          {
+            "Label": "Maintenance",
+            "Value": "Maintenance"
+          },
+          {
+            "Label": "Failure",
+            "Value": "Failure"
+          }
+        ]
+      }
+    ],
+    "Comparison": "Equal"
+  },
+  {
+    "Title": "Prioriteit",
+    "AskUser": [
+      {
+        "Type": "Checkbox",
+        "Title": "Contract type",
+        "Property": "Contract",
+        "Comparison": "Equal",
+        "Options": [
+          {
+            "Label": "Brons",
+            "Value": "Brons"
+          },
+          {
+            "Label": "Zilver",
+            "Value": "Zilver"
+          }
+        ]
+      },
+      {
+        "Type": "Select",
+        "Title": "Klant type",
+        "Property": "Klant",
+        "Comparison": "Equal",
+        "Options": [
+          {
+            "Label": "Lasting",
+            "Value": "Lasting"
+          },
+          {
+            "Label": "New",
+            "Value": "New"
+          }
+        ]
+      },
+      {
+        "Type": "Date",
+        "Title": "Uit te voeren voor",
+        "Property": "EndDate",
+        "Comparison": "Less"
+      }
+    ]
+  }
+]
