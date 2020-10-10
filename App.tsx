@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import OrderList from "./components/orderList/OrderList.ts";
+import {FilterList} from "./components/filterList/FilterList";
 
 export default function App(): JSX.Element {
   return(
       <View style={styles.container}>
-        <Text>This is a test</Text>
+        <FilterList/>
         <OrderList/>
       </View>
   );
