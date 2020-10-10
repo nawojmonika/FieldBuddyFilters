@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {OrderListState} from "./interfaces/OrderListState";
 import {OrderProps} from "../order/interfaces/OrderProps";
+import {Order} from "../order/Order";
 
 
 export default class OrderList extends React.Component<unknown, OrderListState> {
@@ -23,10 +24,9 @@ export default class OrderList extends React.Component<unknown, OrderListState> 
     render() {
         return (
             <View style={styles.list}>
-                {this.state.list.map((element: OrderProps, index: number) => {
-                    return <Text key={index}>This is an order item!</Text>
+                {this.state.list.map((itemProps: OrderProps, index: number) => {
+                    return <Order key={index} {...itemProps} />
                 })}
-
             </View>
         );
     }
@@ -34,6 +34,7 @@ export default class OrderList extends React.Component<unknown, OrderListState> 
 
 const styles = StyleSheet.create({
     list: {
-        flex: 1
+        flex: 1,
+        width: '100%'
     },
 });

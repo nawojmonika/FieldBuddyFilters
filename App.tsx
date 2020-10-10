@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import OrderList from "./components/orderList/OrderList.ts";
@@ -18,5 +17,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '85vw',
+    marginTop: '15px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
 });

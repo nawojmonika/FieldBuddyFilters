@@ -7,8 +7,8 @@ export interface OrderProps {
     Name: string,
     Status: OrderStatus,
     Type: OrderType,
-    StartDate: Date,
-    EndDate: Date,
+    StartDate: string,
+    EndDate: string,
     Color: OrderColor,
     Description: string
 }
