@@ -1,20 +1,14 @@
 [
   {
     "Title": "Open Werkbonnen",
-    "Properties": ["Status", "Color"],
-    "Values": ["Open", "Blue"],
-    "Operation": "AND",
-    "Comparison": "Equal"
+    "Condition": "Status = 'Open' AND Color='Blue'"
   },
   {
-    "Title": "< 15km",
-    "Properties": ["Distance"],
-    "Values": [15],
-    "Comparison": "Less"
+    "Title": "< 15km"
   },
   {
     "Title": "Type",
-    "AskUser": [
+    "Parameters": [
       {
         "Type": "Checkbox",
         "Property": "Type",
@@ -33,17 +27,15 @@
           }
         ]
       }
-    ],
-    "Comparison": "Equal"
+    ]
   },
   {
     "Title": "Prioriteit",
-    "AskUser": [
+    "Parameters": [
       {
         "Type": "Checkbox",
         "Title": "Contract type",
         "Property": "Contract",
-        "Comparison": "Equal",
         "Options": [
           {
             "Label": "Brons",
@@ -59,7 +51,6 @@
         "Type": "Select",
         "Title": "Klant type",
         "Property": "Klant",
-        "Comparison": "Equal",
         "Options": [
           {
             "Label": "Lasting",
@@ -74,8 +65,7 @@
       {
         "Type": "Date",
         "Title": "Uit te voeren voor",
-        "Property": "EndDate",
-        "Comparison": "Less"
+        "Property": "StartDate"
       }
     ]
   }
