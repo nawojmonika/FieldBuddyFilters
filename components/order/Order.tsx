@@ -2,12 +2,12 @@ import React from "react";
 import {OrderProps} from "./interfaces/OrderProps";
 import {StyleSheet, Text, View} from "react-native";
 import {OrderColor} from "./interfaces/OrderColor";
+import moment from 'moment';
 
 const getTimeFromDateTime = (dateTime: string): string => {
-    // to do
-    const hours = '14';
-    const minutes = '00';
-    return `${hours}:${minutes}`;
+    const momentDateTime = moment(dateTime, "DD-MM-YYYY hh:mm:ss");
+
+    return  momentDateTime.format('HH:mm');
 }
 
 const colors: {[key in OrderColor]: string}  = {
