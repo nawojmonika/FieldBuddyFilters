@@ -5,8 +5,9 @@ import {CheckboxWithLabelProps} from "./interfaces/CheckboxWithLabelProps";
 export function CheckboxWithLabel(props: CheckboxWithLabelProps): JSX.Element {
     const [isSelected, setSelection] = useState(false);
     const handleChange = () => {
-        setSelection(!isSelected);
-        props.onChange();
+        const selected = !isSelected;
+        setSelection(selected);
+        props.onChange(selected);
     }
     return (
         <View style={styles.container}>

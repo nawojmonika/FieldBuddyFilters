@@ -3,10 +3,14 @@ import {StyleSheet, View} from "react-native";
 import {OrderListState} from "./interfaces/OrderListState";
 import {OrderProps} from "../order/interfaces/OrderProps";
 import {Order} from "../order/Order";
+import {Filters} from "../../App";
 
+interface OrderListProps {
+    filters: Filters;
+}
 
-export default class OrderList extends React.Component<unknown, OrderListState> {
-    constructor(props: Readonly<unknown>) {
+export default class OrderList extends React.Component<OrderListProps, OrderListState> {
+    constructor(props: Readonly<OrderListProps>) {
         super(props);
         this.state = {list: []};
     }
@@ -22,9 +26,13 @@ export default class OrderList extends React.Component<unknown, OrderListState> 
     }
 
     render() {
+
+        const filteredList = Object.values(this.props.filters).reduce((prev, current) => {
+            return prev.filter((item) => current.filter(item))
+        }, this.state.list);
         return (
             <View style={styles.list}>
-                {this.state.list.map((itemProps: OrderProps, index: number) => {
+                {filteredList.map((itemProps: OrderProps, index: number) => {
                     return <Order key={index} {...itemProps} />
                 })}
             </View>

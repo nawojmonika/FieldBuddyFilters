@@ -25,7 +25,7 @@ export function Filter(props: FilterProps): JSX.Element {
             </TouchableHighlight>
         </View>
         { props.Parameters?.length && modalVisible ?
-            <FilterParameters parameters={props.Parameters} onClose={handleParamsClose}/> : null
+            <FilterParameters filter={props.Filter} filterTitle={props.Title} filtersListDispatch={props.filtersListDispatch} parameters={props.Parameters} onClose={handleParamsClose}/> : null
         }
     </View>
 

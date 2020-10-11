@@ -8,6 +8,7 @@ import {compileExpression} from "filtrex";
 
 interface FilterListProps {
     filtersListDispatch: React.Dispatch<IFiltersStateAction>;
+    filters: Filters;
 }
 
 export class FilterList extends React.Component<FilterListProps, FilterListState>{
@@ -25,20 +26,17 @@ export class FilterList extends React.Component<FilterListProps, FilterListState
                     .replaceAll('=', '==')
                     .replaceAll('AND', 'and')
                     .replaceAll('OR', 'or') : undefined;
-
-
             return {
                 ...filter,
                 Condition
             }}).map((filter) => {
                 if (filter.Condition) {
-                    return new FilterClass(compileExpression(filter.Condition, { extraFunctions: {AskUser: () => true}}), filter.Title);
+                    return new FilterClass((data: any) => data, filter.Title, '');
                 }
-                return new FilterClass((data: any) =>  data, filter.Title);
+                return new FilterClass((data: any) =>  data, filter.Title, '');
             })
 
             this.props.filtersListDispatch({ type: FiltersActionType.ReplaceFilters, payload: filteredExpressions});
-
 
             this.setState({filters})
         }
@@ -51,7 +49,13 @@ export class FilterList extends React.Component<FilterListProps, FilterListState
        return (
            <View style={styles.list}>
                {this.state.filters.map((filter: FilterProps, index: number) => {
-                return <Filter key={index} {...filter}/>
+                return <Filter key={index}
+                               Filter={this.props.filters[filter.Title]}
+                               filtersListDispatch={this.props.filtersListDispatch}
+                               Condition={filter.Condition}
+                               Title={filter.Title}
+                               Parameters={filter.Parameters}
+                               />
                })}
            </View>
        )

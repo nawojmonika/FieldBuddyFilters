@@ -16,16 +16,23 @@ export enum FiltersActionType {
 
 export interface Filterable {
   filter: (items: OrderProps) => OrderProps;
+  getFilterName(): string;
+  getCondition(): string;
 }
 export class FilterClass implements Filterable {
   filterFunction: any;
   filterName: string;
-  constructor(filterFunction: any, filterName: string) {
+  condition: string;
+  constructor(filterFunction: any, filterName: string, condition: string) {
     this.filterFunction = filterFunction;
     this.filterName = filterName;
+    this.condition = condition;
   }
   getFilterName(): string {
     return this.filterName;
+  }
+  getCondition(): string {
+    return this.condition;
   }
   filter(items: OrderProps): OrderProps {
     return this.filterFunction(items);
@@ -39,7 +46,12 @@ export interface Filters {
 const filtersListStateReducer = (state: Filters, action: IFiltersStateAction): Filters => {
   switch (action.type) {
     case FiltersActionType.AddOrReplaceFilter: {
-      return {...state };
+      const filters = action.payload.reduce<Filters>((prev, curr) => {
+        prev[curr.getFilterName()] = curr;
+        return prev;
+      }, {} )
+
+      return {...state, ...filters };
     }
 
     case FiltersActionType.ReplaceFilters: {
@@ -59,10 +71,11 @@ const filtersListStateReducer = (state: Filters, action: IFiltersStateAction): F
 
 export default function App(): JSX.Element {
   const [filters, filtersListDispatch] = useReducer(filtersListStateReducer, {});
+  console.log(filters);
   return(
       <SafeAreaView style={styles.container}>
-          <OrderList/>
-          <FilterList filtersListDispatch={filtersListDispatch}/>
+          <OrderList filters={filters}/>
+          <FilterList filters={filters} filtersListDispatch={filtersListDispatch}/>
       </SafeAreaView>
   );
 }
