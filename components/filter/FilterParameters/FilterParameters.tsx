@@ -2,8 +2,12 @@ import React, {useState} from "react";
 import {Button, Modal, Platform, StyleSheet, Text, View} from "react-native";
 import {FilterParametersProps} from "./interfaces/FilterParametersProps";
 import {Parameters} from "../interfaces/Parameters";
+import {Option} from "../interfaces/Option";
+import {InputUtils} from "../../../Utils/InputUitls";
 
 const mainColor = "#217ebb";
+
+
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const [visible, setVisible] = useState(true);
@@ -17,17 +21,21 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
         handleClose();
     }
 
+    const onParamChange = () => {
+        console.log('param changes')
+    }
+
     const getModalBody = (): JSX.Element => {
        return  (
            <View style={styles.modal}>
-               {props.parameters.map(({Title, Options}: Parameters, index: number): JSX.Element => {
+               {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
                 return (
                     <View key={index}>
                         {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
+                        {Options?.map((option: Option) => InputUtils.getInputByType(Type, option.Label, onParamChange))}
                     </View>
                 )
                })}
-
                 <Button title='Apply'
                         onPress={handleApply}
                         color={mainColor}
@@ -46,7 +54,6 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
                       onRequestClose={handleClose}>
                    {getModalBody()}
                </Modal>
-
            }
        </View>
     )
