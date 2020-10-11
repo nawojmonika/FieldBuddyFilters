@@ -1,7 +1,7 @@
 [
   {
     "Title": "Open Werkbonnen",
-    "Condition": "Status = 'Open' AND Color='Blue'"
+    "Condition": "Status = 'Open' AND Color = 'Blue'"
   },
   {
     "Title": "< 15km"

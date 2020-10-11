@@ -4,7 +4,6 @@ import {FilterListState} from "./interfaces/FilterListState";
 import {FilterProps} from "../filter/interfaces/FilterProps";
 import {Filter} from "../filter/Filter";
 import {FilterClass, Filters, FiltersActionType, IFiltersStateAction} from "../../App";
-import {compileExpression} from "filtrex";
 
 interface FilterListProps {
     filtersListDispatch: React.Dispatch<IFiltersStateAction>;
@@ -31,9 +30,9 @@ export class FilterList extends React.Component<FilterListProps, FilterListState
                 Condition
             }}).map((filter) => {
                 if (filter.Condition) {
-                    return new FilterClass((data: any) => data, filter.Title, '');
+                    return new FilterClass((data: any) => data, filter.Title,  '', filter.Condition);
                 }
-                return new FilterClass((data: any) =>  data, filter.Title, '');
+                return new FilterClass((data: any) =>  data, filter.Title, '', '');
             })
 
             this.props.filtersListDispatch({ type: FiltersActionType.ReplaceFilters, payload: filteredExpressions});

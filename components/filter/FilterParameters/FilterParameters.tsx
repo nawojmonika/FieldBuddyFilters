@@ -1,21 +1,14 @@
 import React, {useState} from "react";
-import {Button, Modal, Platform, StyleSheet, Text, View} from "react-native";
+import {Modal, Platform, StyleSheet, Text, View} from "react-native";
 import {FilterParametersProps} from "./interfaces/FilterParametersProps";
 import {Parameters} from "../interfaces/Parameters";
 import {Option} from "../interfaces/Option";
 import {InputUtils} from "../../../Utils/InputUitls";
 import {FilterClass, FiltersActionType} from "../../../App";
-import {compileExpression} from "filtrex";
+import {FilterUtils} from "../../../Utils/FilterUtils";
 
 const mainColor = "#217ebb";
 
-function getExpressionFunction(condition: string): any {
-    if (condition.length) {
-        return compileExpression(condition, { extraFunctions: {AskUser: () => ''}})
-    }
-
-    return (data: any) =>  data;
-}
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const [visible, setVisible] = useState(true);
@@ -26,17 +19,18 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
 
     const onParamChange = (filterTitle: string, propertyKey: string, propertyValue: unknown, inputValue: boolean | string) => {
         if (typeof inputValue === 'boolean') {
-            let condition = props.filter.getCondition();
-            const propertyCondition = ` ${propertyKey} == "${propertyValue}"`
-            const optionCondition = condition.length > 0 ? ` or${propertyCondition}` : propertyCondition;
+            let condition = props.filter.getInitialCondition();
+            const propertyCondition = `${propertyKey} == "${propertyValue}"`
+            const optionCondition = condition.length > 0 ? ` or ${propertyCondition}` : propertyCondition;
             if (inputValue) {
                 condition += optionCondition;
             } else {
                 condition = condition.replaceAll(optionCondition, '').replaceAll(propertyCondition, '');
             }
+
              props.filtersListDispatch({
              type: FiltersActionType.AddOrReplaceFilter,
-             payload: [new FilterClass(getExpressionFunction(condition), filterTitle, condition)]});
+             payload: [new FilterClass(FilterUtils.getExpressionFunction(condition), filterTitle, condition, props.filter.getInitialCondition())]});
         }
     }
 
