@@ -19,10 +19,8 @@ function getExpressionFunction(condition: string): any {
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const [visible, setVisible] = useState(true);
-    const [filterOptions, setFilterOptions] = useState([]);
 
     const handleClose = () => {
-        console.log("Modal has been closed.");
         props.onClose();
     }
 
@@ -31,15 +29,11 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
             let condition = props.filter.getCondition();
             const propertyCondition = ` ${propertyKey} == "${propertyValue}"`
             const optionCondition = condition.length > 0 ? ` or${propertyCondition}` : propertyCondition;
-            console.log(inputValue)
-            console.log(condition)
             if (inputValue) {
                 condition += optionCondition;
             } else {
                 condition = condition.replaceAll(optionCondition, '').replaceAll(propertyCondition, '');
             }
-            console.log(condition);
-
              props.filtersListDispatch({
              type: FiltersActionType.AddOrReplaceFilter,
              payload: [new FilterClass(getExpressionFunction(condition), filterTitle, condition)]});
