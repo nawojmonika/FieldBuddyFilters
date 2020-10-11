@@ -20,8 +20,12 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const getModalBody = (): JSX.Element => {
        return  (
            <View style={styles.modal}>
-               {props.parameters.map(({title, options}: Parameters) => {
-                   {title?.length ? <Text>{title}</Text> : null}
+               {props.parameters.map(({Title, Options}: Parameters, index: number): JSX.Element => {
+                return (
+                    <View key={index}>
+                        {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
+                    </View>
+                )
                })}
 
                 <Button title='Apply'
@@ -56,6 +60,13 @@ const styles = StyleSheet.create({
     },
     modal: {
         backgroundColor: mainColor,
-        width: '100%'
+        width: '100%',
+        padding: 20
+    },
+    paramTitle: {
+        color: '#fff',
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1,
+        padding: 5
     }
 });
