@@ -11,7 +11,7 @@ const mainColor = "#217ebb";
 
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
-    const [visible, setVisible] = useState(true);
+    const [selectedOptions, setSelectedOptions] = useState<unknown[]>([]);
 
     const handleClose = () => {
         props.onClose();
@@ -19,24 +19,31 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
 
     const onParamChange = (filterTitle: string, propertyKey: string, propertyValue: unknown, inputValue: boolean | string) => {
         if (typeof inputValue === 'boolean') {
-            let condition = props.filter.getInitialCondition();
-            const propertyCondition = `${propertyKey} == "${propertyValue}"`
-            const optionCondition = condition.length > 0 ? ` or ${propertyCondition}` : propertyCondition;
+            let condition = '';
+            let values = [];
             if (inputValue) {
-                condition += optionCondition;
+                values = [...selectedOptions, propertyValue];
+                setSelectedOptions(values);
             } else {
-                condition = condition.replaceAll(optionCondition, '').replaceAll(propertyCondition, '');
+                values = [...selectedOptions.filter((option) => option !== propertyValue)]
+                setSelectedOptions(values);
+            }
+
+            if (values.length) {
+                condition = props.filter.getInitialCondition();
             }
 
              props.filtersListDispatch({
              type: FiltersActionType.AddOrReplaceFilter,
-             payload: [new FilterClass(FilterUtils.getExpressionFunction(condition), filterTitle, condition, props.filter.getInitialCondition())]});
+             payload: [new FilterClass(FilterUtils.getExpressionFunction(condition, values), filterTitle, condition, props.filter.getInitialCondition())]});
         }
     }
 
+    const isHidden = !props.visible;
+
     const getModalBody = (): JSX.Element => {
         return (
-            <View style={styles.modal}>
+            <View style={[styles.modal, isHidden ? styles.hidden : null]}>
                 {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
                     return (
                         <View key={index}>
@@ -62,7 +69,7 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
     return (
         <View style={styles.container}>
             {isWebOS ? getModalBody() :
-                <Modal visible={visible}
+                <Modal visible={props.visible}
                        transparent={true}
                        onRequestClose={handleClose}>
                     {getModalBody()}
@@ -82,6 +89,9 @@ const styles = StyleSheet.create({
         backgroundColor: mainColor,
         width: '100%',
         padding: 20
+    },
+    hidden: {
+        display: 'none'
     },
     paramTitle: {
         color: '#fff',

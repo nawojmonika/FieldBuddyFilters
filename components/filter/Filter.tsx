@@ -17,7 +17,6 @@ export function Filter(props: FilterProps): JSX.Element {
             condition = '';
         } else {
             condition = props.Filter.getInitialCondition();
-            console.log(props.Filter.getInitialCondition())
         }
 
         props.filtersListDispatch({
@@ -29,13 +28,12 @@ export function Filter(props: FilterProps): JSX.Element {
         const filterActive = !active;
         setActive(filterActive);
         if (props.Parameters?.length) {
-            setModalVisible(filterActive);
+            setModalVisible(!modalVisible);
         } else {
             handleSingleFilter();
         }
     }
     const handleParamsClose = (): void => {
-        setModalVisible(false);
         setActive(false);
     }
     return (
@@ -45,8 +43,13 @@ export function Filter(props: FilterProps): JSX.Element {
                 <Text style={[styles.text, {color: active ? '#fff' : mainColor}]}>{props.Title}</Text>
             </TouchableHighlight>
         </View>
-        { props.Parameters?.length && modalVisible ?
-            <FilterParameters filter={props.Filter} filterTitle={props.Title} filtersListDispatch={props.filtersListDispatch} parameters={props.Parameters} onClose={handleParamsClose}/> : null
+        { props.Parameters?.length ?
+            <FilterParameters visible={modalVisible}
+                              filter={props.Filter}
+                              filterTitle={props.Title}
+                              filtersListDispatch={props.filtersListDispatch}
+                              parameters={props.Parameters}
+                              onClose={handleParamsClose}/> : null
         }
     </View>
 
