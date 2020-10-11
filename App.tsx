@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import OrderList from "./components/orderList/OrderList.ts";
 import {FilterList} from "./components/filterList/FilterList";
 
 export default function App(): JSX.Element {
   return(
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <FilterList/>
         <OrderList/>
-      </View>
+      </SafeAreaView>
   );
 }
 
@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '85vw',
-    marginTop: '15px',
-    marginLeft: 'auto',
-    marginRight: 'auto'
+    width: Platform.OS === 'web' ? '80%' : '95%',
+    alignSelf: "center",
+    marginTop: Platform.OS === 'web' ? 20 : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
 });

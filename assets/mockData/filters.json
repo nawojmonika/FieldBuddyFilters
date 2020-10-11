@@ -8,6 +8,7 @@
   },
   {
     "Title": "Type",
+    "Condition": "Status = 'Open' AND AskUser(Type)",
     "Parameters": [
       {
         "Type": "Checkbox",

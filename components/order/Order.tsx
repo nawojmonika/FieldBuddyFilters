@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: 'solid',
         width: '100%',
-        marginTop: '10px'
+        marginTop: 10
     },
     header: {
         width: '100%',
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
     headerText: {
         color: '#fff',
         flex: 1,
-        paddingTop: '5px',
-        paddingBottom: '5px',
-        paddingRight: '10px',
-        paddingLeft: '10px'
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingRight: 10,
+        paddingLeft: 10
     },
     body: {
-        padding: '20px'
+        padding: 20
     }
 });
