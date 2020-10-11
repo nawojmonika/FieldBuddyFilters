@@ -9,6 +9,13 @@ import {compileExpression} from "filtrex";
 
 const mainColor = "#217ebb";
 
+function getExpressionFunction(condition: string): any {
+    if (condition.length) {
+        return compileExpression(condition, { extraFunctions: {AskUser: () => ''}})
+    }
+
+    return (data: any) =>  data;
+}
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const [visible, setVisible] = useState(true);
@@ -21,20 +28,21 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
 
     const onParamChange = (filterTitle: string, propertyKey: string, propertyValue: unknown, inputValue: boolean | string) => {
         if (typeof inputValue === 'boolean') {
-            let previousCondition = props.filter.getCondition();
-            const optionCondition = previousCondition.length > 0 ? ` or ${propertyKey} == "${propertyValue}"` : `${propertyKey} == "${propertyValue}"`;
+            let condition = props.filter.getCondition();
+            const propertyCondition = ` ${propertyKey} == "${propertyValue}"`
+            const optionCondition = condition.length > 0 ? ` or${propertyCondition}` : propertyCondition;
             console.log(inputValue)
-            console.log(previousCondition)
+            console.log(condition)
             if (inputValue) {
-                previousCondition += optionCondition;
+                condition += optionCondition;
             } else {
-                previousCondition = previousCondition.replaceAll(optionCondition, '').replaceAll(`${propertyKey} == "${propertyValue}"`);
+                condition = condition.replaceAll(optionCondition, '').replaceAll(propertyCondition, '');
             }
-            console.log(previousCondition);
+            console.log(condition);
 
              props.filtersListDispatch({
              type: FiltersActionType.AddOrReplaceFilter,
-             payload: [new FilterClass(compileExpression(previousCondition, { extraFunctions: {AskUser: () => ''}}), filterTitle, previousCondition)]});
+             payload: [new FilterClass(getExpressionFunction(condition), filterTitle, condition)]});
         }
     }
 
