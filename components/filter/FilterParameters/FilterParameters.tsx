@@ -11,14 +11,11 @@ const mainColor = "#217ebb";
 
 export function FilterParameters(props: FilterParametersProps): JSX.Element {
     const [visible, setVisible] = useState(true);
+    const [filterOptions, setFilterOptions] = useState([]);
+
     const handleClose = () => {
         console.log("Modal has been closed.");
         props.onClose();
-    }
-
-    const handleApply = () => {
-        setVisible(false);
-        handleClose();
     }
 
     const onParamChange = () => {
@@ -32,14 +29,14 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
                 return (
                     <View key={index}>
                         {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
-                        {Options?.map((option: Option) => InputUtils.getInputByType(Type, option.Label, onParamChange))}
+                        {Options?.map((option: Option, index: number) => {
+                            return (<View key={index}>
+                                {InputUtils.getInputByType(Type, option.Label, onParamChange)}
+                            </View> );
+                        })}
                     </View>
                 )
                })}
-                <Button title='Apply'
-                        onPress={handleApply}
-                        color={mainColor}
-                        />
             </View>
         );
     }
