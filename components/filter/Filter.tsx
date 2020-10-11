@@ -1,33 +1,42 @@
 import React, {useState} from "react";
 import {FilterProps} from "./interfaces/FilterProps";
-import {Modal, Platform, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import {StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import {FilterParameters} from "./FilterParameters/FilterParameters";
 
 const mainColor = "#217ebb";
 
 export function Filter(props: FilterProps): JSX.Element {
     const [active, setActive] = useState(false);
-    const handlePress = () => {
-        console.log('Filter click')
-        setActive(!active);
+    const [modalVisible, setModalVisible] = useState(false)
+    const handlePress = (): void => {
+        const filterActive = !active;
+        setActive(filterActive);
+        setModalVisible(filterActive);
     }
-    const modalVisible = !!props?.Parameters?.length && active;
-    console.log(modalVisible)
+    const handleParamsClose = (): void => {
+        setModalVisible(false);
+        setActive(false);
+    }
     return (
-    <View style={[styles.button, {backgroundColor: active ? mainColor : '#fff'}]}>
-        {Platform.OS === "web" ? null :
-            <Modal visible={modalVisible}>
-                <Text>Test</Text>
-            </Modal>
-        }
-        <TouchableHighlight onPress={handlePress}>
+    <View style={styles.container}>
+        <View style={[styles.button, {backgroundColor: active ? mainColor : '#fff'}]}>
+            <TouchableHighlight onPress={handlePress}>
                 <Text style={[styles.text, {color: active ? '#fff' : mainColor}]}>{props.Title}</Text>
-        </TouchableHighlight>
+            </TouchableHighlight>
+        </View>
+        { props.Parameters?.length && modalVisible ?
+            <FilterParameters parameters={props.Parameters} onClose={handleParamsClose}/> : null
+        }
     </View>
+
     );
 }
 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     button: {
         flex: 1,
         marginRight: 10,

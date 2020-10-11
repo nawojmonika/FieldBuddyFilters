@@ -35,6 +35,6 @@ export class FilterList extends React.Component<unknown, FilterListState>{
 const styles = StyleSheet.create({
     list: {
         width: '100%',
-        flexDirection: "row"
+        flexDirection: 'row'
     },
 });

@@ -6,8 +6,8 @@ import {FilterList} from "./components/filterList/FilterList";
 export default function App(): JSX.Element {
   return(
       <SafeAreaView style={styles.container}>
-        <FilterList/>
-        <OrderList/>
+          <OrderList/>
+          <FilterList/>
       </SafeAreaView>
   );
 }
@@ -15,6 +15,7 @@ export default function App(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column-reverse',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
