@@ -4,8 +4,9 @@ import {FilterParametersProps} from "./interfaces/FilterParametersProps";
 import {Parameters} from "../interfaces/Parameters";
 import {Option} from "../interfaces/Option";
 import {InputUtils} from "../../../Utils/InputUitls";
-import {FilterClass, FiltersActionType} from "../../../App";
 import {FilterUtils} from "../../../Utils/FilterUtils";
+import {FiltersActionType} from "../../../Utils/interfaces/FilterActionType";
+import {FilterClass} from "../../../Utils/FilterClass";
 
 const mainColor = "#217ebb";
 
