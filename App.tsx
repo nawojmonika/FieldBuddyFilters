@@ -6,7 +6,6 @@ import {FilterUtils} from "./Utils/FilterUtils";
 
 export default function App(): JSX.Element {
   const [filters, filtersListDispatch] = useReducer(FilterUtils.filtersListStateReducer, {});
-  console.log(filters);
   return(
       <SafeAreaView style={styles.container}>
           <OrderList filters={filters}/>
@@ -18,7 +17,7 @@ export default function App(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: 'column-reverse',
+    flexDirection: 'column-reverse',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

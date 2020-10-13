@@ -17,11 +17,11 @@ export class FilterList extends React.Component<FilterListProps, FilterListState
         try {
             const filters = require('../../assets/mockData/filters.json') as FilterProps[];
 
-            const filteredExpressions = filters.map((filter) => {
-                const Condition = filter?.Condition
-                    .replaceAll('=', '==')
-                    .replaceAll('AND', 'and')
-                    .replaceAll('OR', 'or');
+            const filteredExpressions = filters.map((filter: FilterProps) => {
+                const Condition = filter.Condition !== undefined ? filter.Condition
+                    .replace('=', '==')
+                    .replace('AND', 'and')
+                    .replace('OR', 'or') : undefined;
             return {
                 ...filter,
                 Condition
