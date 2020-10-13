@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import {FilterProps} from "./interfaces/FilterProps";
 import {StyleSheet, Text, TouchableHighlight, View} from "react-native";
 import {FilterParameters} from "./FilterParameters/FilterParameters";
-import {FilterClass, FiltersActionType} from "../../App";
 import {FilterUtils} from "../../Utils/FilterUtils";
+import {FiltersActionType} from "../../Utils/interfaces/FilterActionType";
+import {FilterClass} from "../../Utils/FilterClass";
 
 const mainColor = "#217ebb";
 

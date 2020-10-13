@@ -3,11 +3,9 @@ import {StyleSheet, View} from "react-native";
 import {OrderListState} from "./interfaces/OrderListState";
 import {OrderProps} from "../order/interfaces/OrderProps";
 import {Order} from "../order/Order";
-import {Filters} from "../../App";
+import {OrderListProps} from "./interfaces/OrderListProps";
 
-interface OrderListProps {
-    filters: Filters;
-}
+
 
 export default class OrderList extends React.Component<OrderListProps, OrderListState> {
     constructor(props: Readonly<OrderListProps>) {

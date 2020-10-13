@@ -3,12 +3,9 @@ import {StyleSheet, View} from "react-native";
 import {FilterListState} from "./interfaces/FilterListState";
 import {FilterProps} from "../filter/interfaces/FilterProps";
 import {Filter} from "../filter/Filter";
-import {FilterClass, Filters, FiltersActionType, IFiltersStateAction} from "../../App";
-
-interface FilterListProps {
-    filtersListDispatch: React.Dispatch<IFiltersStateAction>;
-    filters: Filters;
-}
+import {FilterListProps} from "./interfaces/FilterListProps";
+import {FilterClass} from "../../Utils/FilterClass";
+import {FiltersActionType} from "../../Utils/interfaces/FilterActionType";
 
 export class FilterList extends React.Component<FilterListProps, FilterListState>{
     constructor(props: Readonly<FilterListProps>) {
