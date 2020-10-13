@@ -2,81 +2,10 @@ import React, {useReducer} from 'react';
 import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import OrderList from "./components/orderList/OrderList.ts";
 import {FilterList} from "./components/filterList/FilterList";
-import {OrderProps} from "./components/order/interfaces/OrderProps";
-
-export interface IFiltersStateAction {
-  type: FiltersActionType;
-  payload: FilterClass[];
-}
-
-export enum FiltersActionType {
-  AddOrReplaceFilter = 'AddOrReplaceFilter',
-  ReplaceFilters = 'ReplaceFilters'
-}
-
-export interface Filterable {
-  filter: (items: OrderProps) => OrderProps;
-  getFilterName(): string;
-  getCondition(): string;
-  getInitialCondition(): string;
-}
-export class FilterClass implements Filterable {
-  filterFunction: any;
-  filterName: string;
-  condition: string = '';
-  initialCondition: string;
-  constructor(filterFunction: any, filterName: string, condition: string, initialCondition: string) {
-    this.filterFunction = filterFunction;
-    this.filterName = filterName;
-    this.condition = condition;
-    this.initialCondition = initialCondition;
-  }
-  getFilterName(): string {
-    return this.filterName;
-  }
-  getCondition(): string {
-    return this.condition;
-  }
-  getInitialCondition(): string {
-    return this.initialCondition;
-  }
-  filter(items: OrderProps): OrderProps {
-    return this.filterFunction(items);
-  }
-}
-
-export interface Filters {
-  [key: string]: FilterClass,
-}
-
-const filtersListStateReducer = (state: Filters, action: IFiltersStateAction): Filters => {
-  switch (action.type) {
-    case FiltersActionType.AddOrReplaceFilter: {
-      const filters = action.payload.reduce<Filters>((prev, curr) => {
-        prev[curr.getFilterName()] = curr;
-        return prev;
-      }, {} )
-
-      return {...state, ...filters };
-    }
-
-    case FiltersActionType.ReplaceFilters: {
-      const filters = action.payload.reduce<Filters>((prev, curr) => {
-        prev[curr.getFilterName()] = curr;
-        return prev;
-      }, {} )
-      return { ...state, ...filters };
-    }
-
-
-    default:
-      throw new Error('Unknown action type');
-
-  }
-}
+import {FilterUtils} from "./Utils/FilterUtils";
 
 export default function App(): JSX.Element {
-  const [filters, filtersListDispatch] = useReducer(filtersListStateReducer, {});
+  const [filters, filtersListDispatch] = useReducer(FilterUtils.filtersListStateReducer, {});
   console.log(filters);
   return(
       <SafeAreaView style={styles.container}>
