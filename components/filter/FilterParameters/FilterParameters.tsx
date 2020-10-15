@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Modal, Platform, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {FilterParametersProps} from "./interfaces/FilterParametersProps";
 import {Parameters} from "../interfaces/Parameters";
 import {Option} from "../interfaces/Option";
@@ -42,40 +42,28 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
 
     const isHidden = !props.visible;
 
-    const getModalBody = (): JSX.Element => {
-        return (
-            <View style={[styles.modal, isHidden ? styles.hidden : null]}>
-                {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
-                    return (
-                        <View key={index}>
-                            {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
-                            {Options?.map((option: Option, index: number) => {
-                                return (<View key={index}>
-                                    {InputUtils.getInputByType(Type, option.Label,
-                                        ((inputValue: boolean | string) => {
-                                                onParamChange(props.filterTitle, Property, option.Value, inputValue)
-                                            }
-                                        ))}
-                                </View>);
-                            })}
-                        </View>
-                    )
-                })}
-            </View>
-        );
-    }
-
-    const isWebOS = Platform.OS == 'web';
-
     return (
-        <View style={styles.container}>
-            {isWebOS ? getModalBody() :
-                <Modal visible={props.visible}
-                       transparent={true}
-                       onRequestClose={handleClose}>
-                    {getModalBody()}
-                </Modal>
-            }
+        <View>
+            <View style={styles.container}>
+                <View style={[styles.modal, isHidden ? styles.hidden : null]}>
+                    {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
+                        return (
+                            <View key={index}>
+                                {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
+                                {Options?.map((option: Option, index: number) => {
+                                    return (<View key={index}>
+                                        {InputUtils.getInputByType(Type, option.Label,
+                                            ((inputValue: boolean | string) => {
+                                                    onParamChange(props.filterTitle, Property, option.Value, inputValue)
+                                                }
+                                            ))}
+                                    </View>);
+                                })}
+                            </View>
+                        )
+                    })}
+                </View>
+            </View>
         </View>
     )
 }
