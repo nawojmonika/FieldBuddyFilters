@@ -6,7 +6,7 @@ import {FilterClass} from "./FilterClass";
 
 export const FilterUtils = {
     getExpressionFunction(condition: string, values?: unknown[]): any {
-        condition = condition.replaceAll("\'", '"');
+        condition = condition.replace(/'/g, '"');
         if (condition.length) {
             return compileExpression(condition, { extraFunctions: {AskUser: (property: unknown) => values?.includes(property)}})
         }

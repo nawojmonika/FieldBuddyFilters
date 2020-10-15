@@ -22,7 +22,8 @@ export function Filter(props: FilterProps): JSX.Element {
 
         props.filtersListDispatch({
             type: FiltersActionType.AddOrReplaceFilter,
-            payload: [new FilterClass(FilterUtils.getExpressionFunction(condition), props.Filter.getFilterName(), condition, props.Filter.getInitialCondition())]});
+            payload: [new FilterClass(FilterUtils.getExpressionFunction(condition), props.Filter.getFilterName(), condition, props.Filter.getInitialCondition())]
+        });
     }
 
     const handlePress = (): void => {
@@ -38,21 +39,20 @@ export function Filter(props: FilterProps): JSX.Element {
         setActive(false);
     }
     return (
-    <View style={styles.container}>
-        <View style={[styles.button, {backgroundColor: active ? mainColor : '#fff'}]}>
-            <TouchableHighlight onPress={handlePress}>
+        <View style={styles.container}>
+            <TouchableHighlight onPress={handlePress}
+                                style={[styles.button, {backgroundColor: active ? mainColor : '#fff'}]}>
                 <Text style={[styles.text, {color: active ? '#fff' : mainColor}]}>{props.Title}</Text>
             </TouchableHighlight>
+            {props.Parameters?.length ?
+                <FilterParameters visible={modalVisible}
+                                  filter={props.Filter}
+                                  filterTitle={props.Title}
+                                  filtersListDispatch={props.filtersListDispatch}
+                                  parameters={props.Parameters}
+                                  onClose={handleParamsClose}/> : null
+            }
         </View>
-        { props.Parameters?.length ?
-            <FilterParameters visible={modalVisible}
-                              filter={props.Filter}
-                              filterTitle={props.Title}
-                              filtersListDispatch={props.filtersListDispatch}
-                              parameters={props.Parameters}
-                              onClose={handleParamsClose}/> : null
-        }
-    </View>
 
     );
 }
@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: mainColor,
         justifyContent: 'center',
-        padding: 10
+        padding: 20
     },
     text: {
-        textAlign: "center"
+        textAlign: "center",
     }
 });

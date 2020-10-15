@@ -19,9 +19,9 @@ export class FilterList extends React.Component<FilterListProps, FilterListState
 
             const filteredExpressions = filters.map((filter: FilterProps) => {
                 const Condition = filter.Condition !== undefined ? filter.Condition
-                    .replace('=', '==')
-                    .replace('AND', 'and')
-                    .replace('OR', 'or') : undefined;
+                    .replace(/=/g, '==')
+                    .replace(/AND/g, 'and')
+                    .replace(/OR/g, 'or') : undefined;
             return {
                 ...filter,
                 Condition
