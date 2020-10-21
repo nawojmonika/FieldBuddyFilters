@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     checkbox: {
-        alignSelf: "center",
+        alignSelf: "center"
     },
     label: {
         margin: 8,

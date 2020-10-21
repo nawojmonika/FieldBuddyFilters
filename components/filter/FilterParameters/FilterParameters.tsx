@@ -45,24 +45,26 @@ export function FilterParameters(props: FilterParametersProps): JSX.Element {
     return (
         <View>
             <View style={styles.container}>
-                <View style={[styles.modal, isHidden ? styles.hidden : null]}>
-                    {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
-                        return (
-                            <View key={index}>
-                                {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
-                                {Options?.map((option: Option, index: number) => {
-                                    return (<View key={index}>
-                                        {InputUtils.getInputByType(Type, option.Label,
-                                            ((inputValue: boolean | string) => {
-                                                    onParamChange(props.filterTitle, Property, option.Value, inputValue)
-                                                }
-                                            ))}
-                                    </View>);
-                                })}
-                            </View>
-                        )
-                    })}
-                </View>
+                {isHidden ? null :
+                    <View style={[styles.modal]}>
+                        {props.parameters.map(({Title, Type, Options, Property}: Parameters, index: number): JSX.Element => {
+                            return (
+                                <View key={`filter-parameter-${index}`}>
+                                    {Title?.length ? <Text style={styles.paramTitle}>{Title}</Text> : null}
+                                    {Options?.map((option: Option, index: number) => {
+                                        return (<View key={`filter-parameter-option-${index}`}>
+                                            {InputUtils.getInputByType(Type, option.Label,
+                                                ((inputValue: boolean | string) => {
+                                                        onParamChange(props.filterTitle, Property, option.Value, inputValue)
+                                                    }
+                                                ))}
+                                        </View>);
+                                    })}
+                                </View>
+                            )
+                        })}
+                    </View>
+                }
             </View>
         </View>
     )

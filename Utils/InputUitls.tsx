@@ -7,13 +7,13 @@ export const InputUtils  = {
         return <CheckboxWithLabel label={label} onChange={onChange}/>;
     },
 
-    getInputByType: (type: InputType, label: string, onChange: (value: boolean | string) => void): JSX.Element => {
+    getInputByType: (type: InputType, label: string, onChange: (value: boolean | string) => void): JSX.Element | null => {
     switch (type) {
         case InputType.Checkbox: {
             return InputUtils.getCheckBoxElement(label, onChange);
             }
         default: {
-            return InputUtils.getCheckBoxElement(label, onChange)
+            return null;
             }
         }
     }
