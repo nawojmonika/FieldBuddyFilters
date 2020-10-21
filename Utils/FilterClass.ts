@@ -1,5 +1,5 @@
 import {OrderProps} from "../components/order/interfaces/OrderProps";
-import {Filterable} from "../App";
+import {Filterable} from "./interfaces/Filterable";
 
 export class FilterClass implements Filterable {
     filterFunction: any;
