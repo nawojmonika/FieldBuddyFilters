@@ -24,6 +24,15 @@ export const FilterUtils = {
                 return {...state, ...filters };
             }
 
+            case FiltersActionType.ReplaceFilters: {
+                const filters = action.payload.reduce<Filters>((prev: Filters, curr: FilterClass) => {
+                    prev[curr.getFilterName()] = curr;
+                    return prev;
+                }, {} )
+                return { ...state, ...filters };
+            }
+
+
             default:
                 throw new Error('Unknown action type');
 

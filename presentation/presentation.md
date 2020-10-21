@@ -32,7 +32,7 @@ NOTE:
 So as you can see every filter has a Title that will be shown to user.
 We can specify a condition - all of them are from the examples that you provided me in the task description.
 More complicated filters have parameters that will be passed to askUser function.
-Parameter has a type - for know we only have a checkbox type.
+Parameter has a type - for now we only have a checkbox type.
 A property that will be filtered.
 And options to show with label and value.
 

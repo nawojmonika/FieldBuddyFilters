@@ -28,6 +28,16 @@
     "EndDate":"22-04-2016 15:00:00",
     "Color":"Green",
     "Description":"Check freon on split-system"
+  },
+  {
+    "Id":"uniqwo4",
+    "Name":"WO-0004",
+    "Status":"Open",
+    "Type":"Maintenance",
+    "StartDate":"22-04-2016 14:00:00",
+    "EndDate":"22-04-2016 15:00:00",
+    "Color":"Blue",
+    "Description":"Check freon on split-system"
   }
 
 ]
